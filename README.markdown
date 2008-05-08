@@ -47,4 +47,6 @@ classes will be applied at the appropriate times:
 
 ## Dependencies ##
 
-Currently, you must have [Prototype](http://prototypejs.com) and [Scriptaculous](http://script.aculo.us/) included in the page.
+[Prototype](http://prototypejs.com) and [Scriptaculous](http://script.aculo.us/)
+
+Scriptaculous is only used for the effect of scrolling to the right.  This could probably be turned off without too much work if you don't want this dependency.
