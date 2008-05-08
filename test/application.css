@@ -1,0 +1,29 @@
+body{
+	padding:0px;
+	margin:0px;
+}
+#toolbar{
+	height:40px;
+}
+
+#column_control{
+  width: 320px;
+  height: 440px;
+  margin: 0px;
+  font-family:helvetica;
+  font-size:1.2em;
+}
+#column_control ul{
+  width: 320px;        
+  background-color:#eee;
+}
+#column_control ul.current_column{
+}
+#column_control ul li{
+  padding:5px;
+  list-style:none;
+}
+#column_control ul li.selected{
+  background-color: #ccc;
+  font-weight:bold;
+}

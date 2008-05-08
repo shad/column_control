@@ -153,15 +153,15 @@ Ajax.ColumnControl.prototype = {
 		
 		
 		// first column, so select first row
-		if( allColumns.length == 1 ){
-			this.selectRow(allColumns[0].down('li'));
-		}
+		// if( allColumns.length == 1 ){
+		// 	this.selectRow(allColumns[0].down('li'));
+		// }
 		
 		// Highlight all of the rows of the items returned.
-		toHighlight = this.currentPath.split('/');		
+		toHighlight = this.currentPath.split('/');
 		newColumns.each(function(column){
 			nextPath = toHighlight.shift();
-			if(nextPath){
+			if(nextPath && newColumns.last() != column){
 				column.childElements().each( function(row){
 					// console.log( nextPath + '==' + row.getAttribute(this.options.pathName)  );
 					if( nextPath == row.getAttribute(this.options.pathName) ){
@@ -181,6 +181,8 @@ Ajax.ColumnControl.prototype = {
 			if(allColumns.length - startlength > 0){
 				if( typeof(Scriptaculous)!='undefined' ){
 					new Effect.ScrollHorizontal( this.element );
+				}else{
+					
 				}
 			}else{
 				this.element.scrollLeft = this.element.scrollWidth - this.element.clientWidth;
