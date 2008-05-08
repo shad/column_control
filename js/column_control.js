@@ -1,32 +1,33 @@
 /*
 Effect that takes care of scrolling a scrolling element all the way to the right from wherever it is.
 */
-Effect.ScrollHorizontal = Class.create();
-Object.extend(Object.extend(Effect.ScrollHorizontal.prototype, Effect.Base.prototype), {
-  initialize:function(element) {
-    this.element = $(element);
-    if(!this.element) throw(Effect._elementDoesNotExistError);
-    var options = Object.extend({
-			duration: .25
-    }, arguments[1] || {});
+if( typeof(Scriptaculous) != 'undefined' ){
+	Effect.ScrollHorizontal = Class.create();
+	Object.extend(Object.extend(Effect.ScrollHorizontal.prototype, Effect.Base.prototype), {
+	  initialize:function(element) {
+	    this.element = $(element);
+	    if(!this.element) throw(Effect._elementDoesNotExistError);
+	    var options = Object.extend({
+				duration: .25
+	    }, arguments[1] || {});
 		
-		this.start(options);
-  },
-  setup:function() {
-		this.startX = this.element.scrollLeft;
-		this.endX = this.element.scrollWidth - this.element.clientWidth;
-		if( this.options.distance ){
-			this.distance = this.options.distance;
-		}else{
-			this.distance = this.endX - this.startX;
-		}
+			this.start(options);
+	  },
+	  setup:function() {
+			this.startX = this.element.scrollLeft;
+			this.endX = this.element.scrollWidth - this.element.clientWidth;
+			if( this.options.distance ){
+				this.distance = this.options.distance;
+			}else{
+				this.distance = this.endX - this.startX;
+			}
 			
-  },
-  update:function(position) {
-    this.element.scrollLeft = this.startX + (this.distance * position);
-  }
-});
-
+	  },
+	  update:function(position) {
+	    this.element.scrollLeft = this.startX + (this.distance * position);
+	  }
+	});
+}
 
 /*
  * # Column Control #
@@ -178,7 +179,9 @@ Ajax.ColumnControl.prototype = {
 		// (wait a moment to make sure the left edges have time to be calculated properly)
 		setTimeout(function(){			
 			if(allColumns.length - startlength > 0){
-				new Effect.ScrollHorizontal( this.element );
+				if( typeof(Scriptaculous)!='undefined' ){
+					new Effect.ScrollHorizontal( this.element );
+				}
 			}else{
 				this.element.scrollLeft = this.element.scrollWidth - this.element.clientWidth;
 			}
