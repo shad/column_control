@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+  <head>
+    <title>Testing Column View Control</title>
+    <script src="js/prototype.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/column_control.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+      #column_control{
+        width: 300px;
+        height: 200px;
+        margin: 40px;
+        border:1px solid #ccc;
+        font-family:helvetica;
+      }
+      #column_control ul{
+        
+      }
+      #column_control ul.current_column{
+        background-color:#eee;
+      }
+      #column_control ul li{
+        list-style:none;
+        width: 60px;
+      }
+      #column_control ul li.selected{
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="column_control"></div>
+    <script type="text/javascript" charset="utf-8">
+      var column_control = new Ajax.ColumnControl( 'column_control', '/items');
+    </script>
+  </body>
+</html>
