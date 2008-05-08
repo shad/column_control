@@ -5,12 +5,15 @@ class ItemHandler < Mongrel::HttpHandler
   def process(request, response)
     response.start(200) do |head,out|
       head["Content-Type"] = "text/plain"
-      out.write <<-EOF
-      <ul>
-        <li pathname='foo'>Foo</li>
-        <li pathname='bar'>Bar</li>
-      </ul>
-      EOF
+      
+      ret = "<ul>"
+      10.times do
+        num = rand(1000)
+        ret << "<li pathname='#{num}'>#{num}</li>"
+      end
+      ret << "</ul>"
+      
+      out.write ret
     end
   end
 end

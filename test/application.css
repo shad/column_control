@@ -2,12 +2,25 @@ body{
 	padding:0px;
 	margin:0px;
 }
+
+
 #toolbar{
-	height:40px;
+	height:30px;
+	font-size:1.3em;
+	padding-top:10px;
+	padding-left:10px;
+}
+#toolbar a{
+	text-decoration:none;
+	color:black;
+	font-family:helvetica;
+	font-weight:bold;
 }
 
+
+
 #column_control{
-  width: 320px;
+  width: 640px;
   height: 440px;
   margin: 0px;
   font-family:helvetica;

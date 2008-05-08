@@ -152,10 +152,10 @@ Ajax.ColumnControl.prototype = {
 		}
 		
 		
-		// first column, so select first row
-		// if( allColumns.length == 1 ){
-		// 	this.selectRow(allColumns[0].down('li'));
-		// }
+		//first column, so select first row
+		if( allColumns.length == 1 && this.options.selectFirst ){
+		 	this.selectRow(allColumns[0].down('li'));
+		}
 		
 		// Highlight all of the rows of the items returned.
 		toHighlight = this.currentPath.split('/');
@@ -248,18 +248,22 @@ Ajax.ColumnControl.prototype = {
 	},
 	
 	rowMouseOver:function(event){
-		event.element().addClassName("hover");
+		event.findElement('li').addClassName("hover");
 	},
 	rowMouseOut:function(event){
-		event.element().removeClassName("hover");
+		event.findElement('li').removeClassName("hover");
 	},	
 	// Called when the li is selected
 	rowSelected:function(event){
-		this.selectRow( event.element() );
+		this.selectRow( event.findElement('li') );
 	},
 	
 	// Select the row specified
 	selectRow:function(element){
+		if( element.nodeName != 'LI' ){
+			element = element.up('li');
+		}
+		
 		this.highlightRow(element);
 
 		// Callback
@@ -297,6 +301,12 @@ Ajax.ColumnControl.prototype = {
 		else return this.element.down("li");
 	},
 	
+	getCurrentColumn:function(){
+		var current = this.element.down('ul.current_column');
+		if( current ) return current;
+		else return null;
+	},
+	
 	// Key Commands
 	selectNextRow:function(){
 		var row = this.currentRow().next();
@@ -319,6 +329,34 @@ Ajax.ColumnControl.prototype = {
 		this.selectRow(row);
 	},
 	
+	// Just move back and don't select anything (Added for sort of start of iPhone support)
+	// This function needs some real work to DRY it up.
+	goBack:function(){
+		var currentColumn = this.getCurrentColumn();
+		
+		if(currentColumn == null) return;
+		
+		var row = currentColumn.down('li.selected');
+		
+		currentColumn.nextSiblings().each( Element.remove ); // now remove them
+		currentColumn.removeClassName('current_column');
+		prevcol = currentColumn.previous();
+
+		if( row ){
+			row.removeClassName('selected');
+			row.removeClassName('current');
+		}
+
+		if( prevcol ){
+			prevcol.addClassName('current_column');
+			prevcol.down('li.selected').addClassName('current');
+			this.currentPath = this.pathForRow(this.currentRow());
+		}else{
+			this.currentPath = '';
+		}
+		this.updatePageUri();
+	},
+	
 	// Helper function that takes a row element and returns the path to that row
 	pathForRow:function(element){
 		// build the path
@@ -337,8 +375,10 @@ Ajax.ColumnControl.prototype = {
 	updatePageUri: function(){
     var my_href = location.href.toString(), matches = null;
     if (matches = my_href.match(/#(.*)/)){
-      my_href = my_href.replace(matches[0], '#' + this.currentPath);
-      location.href = my_href;
+      my_href = my_href.replace(matches[0], '');
+			my_href += '#' + this.currentPath;
+      setTimeout(function(){location.href = my_href;}.bind(this), 10);
+
     } else {
       location.href += '#' + this.currentPath;
     }
