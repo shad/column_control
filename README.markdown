@@ -1,6 +1,8 @@
 # Javascript Column Control #
 
-A simple way to create a column view control (ala OS X) on the web.  Intended for use with AJaX.
+A simple way to create a column view control on the web.  While originally built to integrate with a Ruby on Rails app, there is no dependency on Ruby or Rails.
+
+NOTE: This is a very early first version of this control.  It's provided as-is with no warrantee.  Best of luck!
 
 ## Overview ##
 
@@ -11,7 +13,7 @@ the LI to know which url to hit next.
 ## SIMPLE EXAMPLE ##
 
 The following is a simple example.
-
+    <script src="js/column_control.js" type="text/javascript"></script>
     <div id="foo"/>
     <script> var columns = new Ajax.ColumnControl( 'foo', '/root/path/for/items'); </script>
 
@@ -23,6 +25,15 @@ This will contact `/root/path/for/items` for it's initial list.  It expects to g
     </ul>
     
 Note that the only odd thing here is the extra attribute 'pathname'.  This will be used to generate the url that we'll hit when someone clicks on the list item.  If someone clicks on "Foo" then the column control will hit `/root/path/for/items/foo` on the server for the next set of options.  This continues as far down as needed.
+
+## Simple example. ##
+
+In the base/example directory and run:
+
+    ruby server.rb
+
+Then go to http://localhost:3000/ in your browser.
+
 
 ## CSS ##
 
@@ -50,4 +61,9 @@ classes will be applied at the appropriate times:
 [Prototype](http://prototypejs.com) and [Scriptaculous](http://script.aculo.us/)
 
 Scriptaculous is only used for the effect of scrolling to the right.  This could probably be turned off without too much work if you don't want this dependency.
+
+## Contact ##
+
+This control was built by Shad Reynolds for Spiceworks.
+Twitter: @shadr
 

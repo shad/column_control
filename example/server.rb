@@ -20,6 +20,8 @@ end
 
 h = Mongrel::HttpServer.new("0.0.0.0", "3000")
 h.register("/items", ItemHandler.new)
-h.register("/js", Mongrel::DirHandler.new("../js"))
+h.register("/cc_js", Mongrel::DirHandler.new("../js"))
 h.register("/", Mongrel::DirHandler.new("."))
+puts 'Column Config Test Server running at http://localhost:3000/'
 h.run.join
+
